@@ -77,7 +77,7 @@ async function connect(address) {
     if (!connected.find(peerAddress => peerAddress === address) && address !== MY_ADDRESS) {
         const socket = new WS(address);
 
-        console.log(`Connected With ${address}`)
+        console.log(`Connected With ${address}, Opened:${opened}, Connected:${connected}`);
 
         socket.on("open", () => {
             // I will use the spread operator to include our connected nodes' addresses into the message's body and send it.
