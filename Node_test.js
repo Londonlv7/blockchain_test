@@ -58,16 +58,17 @@ server.on("connection", async(socket, req) => {
 });
 
 // THE CONNECT FUNCTION
-async function connect(address) {
-    // Get the socket from address
-    const socket = new WS(address);
+// async function connect(address) {
+//     // Get the socket from address
+//     const socket = new WS(address);
 
-    // Connect to the socket using the "open" event
-    socket.on("open", () => {
-        // Send our address to the target 
-        socket.send(JSON.stringify(produceMessage("TYPE_HANDSHAKE", [MY_ADDRESS])));
-    });
-}
+
+//     // Connect to the socket using the "open" event
+//     socket.on("open", () => {
+//         // Send our address to the target 
+//         socket.send(JSON.stringify(produceMessage("TYPE_HANDSHAKE", [MY_ADDRESS])));
+//     });
+// }
 let opened = [], connected = [];
 // I will use "opened" for holding both sockets and addresses, "connected" is for addresses only.
 
@@ -75,6 +76,8 @@ async function connect(address) {
     // We will only connect to the node if we haven't, and we should not be able to connect to ourself
     if (!connected.find(peerAddress => peerAddress === address) && address !== MY_ADDRESS) {
         const socket = new WS(address);
+
+        console.log(`Connected With ${address}`)
 
         socket.on("open", () => {
             // I will use the spread operator to include our connected nodes' addresses into the message's body and send it.
